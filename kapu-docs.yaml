@@ -8,6 +8,8 @@ info:
 servers:
   - url: 'http://kapuapi.dibon.co.ke/'
     description: Sandbox Server
+  - url: 'https://api.dibon.co.ke'
+    description: Production Server
 paths:
   '/api/v1/deactivate-partner/{email}':
     put:
