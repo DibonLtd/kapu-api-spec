@@ -1,0 +1,2524 @@
+openapi: 3.0.1
+x-stoplight:
+  id: rwid76fni05ts
+info:
+  title: Kapu Pay
+  description: API documentation
+  version: '1.0'
+servers:
+  - url: 'http://kapuapi.dibon.co.ke/'
+    description: Generated server url
+paths:
+  '/api/v1/deactivate-partner/{email}':
+    put:
+      tags:
+        - 1. Authentication
+      summary: Activate or Deactivate partner
+      operationId: deactivatePartner
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: i5ug5oukzkmws
+  /api/v1/transaction/withdraw:
+    post:
+      tags:
+        - 3. Transaction Management
+      summary: Withdraw API for Onit Wallet
+      operationId: withdraw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawalRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Withdrawal result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/WithdrawalResponse'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 70doocbevijlo
+  /api/v1/transaction/reverse:
+    post:
+      tags:
+        - 3. Transaction Management
+      summary: Partner initiated reversals for deposits and tranfers/payments
+      operationId: reversal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}': {}
+      x-stoplight:
+        id: cwnu67gwdndwt
+  /api/v1/transaction/register:
+    post:
+      tags:
+        - 3. Transaction Management
+      summary: Register Callback URL
+      operationId: registerUrl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterCallbackModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: o4cqpt88sdomg
+  /api/v1/transaction/pay:
+    post:
+      tags:
+        - 3. Transaction Management
+      summary: Transaction API for Onit Wallet
+      operationId: makePayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: uwcjldg78c8nv
+  /api/v1/transaction/deposit:
+    post:
+      tags:
+        - 3. Transaction Management
+      summary: Deposit API for Onit Wallet
+      operationId: deposit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopUpRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Deposit result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/TopUpResponse'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: lb37bh948o3d9
+  /api/v1/register-partner:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Partner Registration
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: vbx5axwiava67
+  /api/v1/register-internal:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Internal User Registration
+      operationId: registerInternal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternalUserDTO'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: w5g98hmiqa81e
+  /api/v1/password-reset:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Password Reset Endpoint
+      operationId: passwordReset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 1a2c6rfsbyk7j
+  /api/v1/lending/loanRequest:
+    post:
+      tags:
+        - 4. Loan Management
+      summary: Loan Request API for Onit
+      operationId: loanRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanRequestModel'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Loan Request result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/LoanResponseModel'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: z35qczvx6bf18
+  /api/v1/lending/loanRepayment:
+    post:
+      tags:
+        - 4. Loan Management
+      summary: Loan Repayment API for Onit
+      operationId: loanRepayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanRepaymentModel'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Loan Repayment result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/LoanResponseModel'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 9sxr02xkc9cg2
+  /api/v1/lending/creditLimit/add:
+    post:
+      tags:
+        - 4. Loan Management
+      operationId: addCreditLimit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddLimitModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+      x-stoplight:
+        id: lnzbtpxl44jd1
+  /api/v1/deactivate:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Deactivate/Activate user by user ID or Email
+      operationId: register_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentifierDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: cp3z8p6vw18nj
+  /api/v1/auth/verify-otp:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Verify OTP
+      operationId: verifyOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyOtpDTO'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: hkbpwoxbgxndt
+  /api/v1/auth/resend-otp:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Resend OTP
+      operationId: resendOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentifierDTO'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 2mxb2e6gkm51m
+  /api/v1/auth/jwt:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Authentication API
+      operationId: Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequestModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: zjj4ot9tyavmj
+  /api/v1/auth/forgot-password:
+    post:
+      tags:
+        - 1. Authentication
+      summary: Forgot Password Endpoint
+      operationId: forgotPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentifierDTO'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: yuls4p9a9httk
+  /api/v1/account/create/subAccount:
+    post:
+      tags:
+        - 2. Account Management
+      summary: Account opening for sub-accounts on Onit core banking wallet
+      operationId: subAccountOpening
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubAccountModel'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOpeningResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: cppjvvqgvcwhz
+  /api/v1/account/create/individual:
+    post:
+      tags:
+        - 2. Account Management
+      summary: Account opening on Onit core banking wallet
+      operationId: accountOpening
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountOpeningRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Account opening result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/AccountOpeningResponse'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: g997xfpfjf2rf
+  /api/v1/user:
+    get:
+      tags:
+        - 1. Authentication
+      summary: Get User Profile by ID or Email
+      operationId: getUserById
+      parameters:
+        - name: identifier
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 2y9hurwv4d8d7
+  /api/v1/user-profile:
+    get:
+      tags:
+        - 1. Authentication
+      summary: Get Logged In User Profile
+      operationId: getUser
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 6z4ojlvnzixp3
+  '/api/v1/transaction/query/{event}/{transactionRef}':
+    get:
+      tags:
+        - 3. Transaction Management
+      summary: Query Transaction By Transaction Reference API for Onit Wallet
+      operationId: queryTransactionByTransactionReference
+      parameters:
+        - name: event
+          in: path
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT}'
+          required: true
+          schema:
+            type: string
+            enum:
+              - DEPOSIT
+              - WITHDRAW
+              - PAYMENT
+        - name: transactionRef
+          in: path
+          description: Bank Unique Transaction Identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: gwq8xlhzsozd8
+  '/api/v1/transaction/query/originatorRequestId/{event}/{originatorRequestId}':
+    get:
+      tags:
+        - 3. Transaction Management
+      summary: Query Transaction By Request Id API for Onit Wallet
+      operationId: queryTransactionByRequestId
+      parameters:
+        - name: event
+          in: path
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT}'
+          required: true
+          schema:
+            type: string
+            enum:
+              - DEPOSIT
+              - WITHDRAW
+              - PAYMENT
+        - name: originatorRequestId
+          in: path
+          description: Partner unique transaction request ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: ao6zy71bvhzll
+  '/api/v1/transaction/charges/{event}':
+    get:
+      tags:
+        - 3. Transaction Management
+      summary: Query Event Charges API for Onit Wallet
+      operationId: getEventCharges
+      parameters:
+        - name: event
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONObject'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: fpuzrvhk42myq
+  /api/v1/partner:
+    get:
+      tags:
+        - 1. Authentication
+      summary: Fetch Partner Info
+      operationId: getSinglePartner
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 62l702if3rybb
+  '/api/v1/lending/loanStatement/{loanAccount}':
+    get:
+      tags:
+        - 4. Loan Management
+      summary: Loan Statement Request API for Onit
+      operationId: loanStatement
+      parameters:
+        - name: loanAccount
+          in: path
+          description: Loan account generated during loan request
+          required: true
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: End date of desired search period
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatementInquiryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 37yiqnr3uyjh2
+  '/api/v1/lending/loanBalance/{productId}/{accountNumber}':
+    get:
+      tags:
+        - 4. Loan Management
+      summary: Loan Balance Request API for Onit
+      operationId: loanBalance
+      parameters:
+        - name: productId
+          in: path
+          description: Loan product ID
+          required: true
+          schema:
+            type: string
+        - name: accountNumber
+          in: path
+          description: Customer's transactional account number
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 7l83apokflszb
+  '/api/v1/lending/creditLimit/{productId}/{accountNumber}':
+    get:
+      tags:
+        - 4. Loan Management
+      summary: Credit Limit Check Request API for Onit
+      operationId: creditLimit
+      parameters:
+        - name: productId
+          in: path
+          description: Loan product ID
+          required: true
+          schema:
+            type: string
+        - name: accountNumber
+          in: path
+          description: Customer's transactional account number
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditLimitModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: gi42vzmanzmaf
+  /api/v1/get-user:
+    get:
+      tags:
+        - 1. Authentication
+      summary: Fetch All Partner Users
+      operationId: getAllUsers
+      parameters:
+        - name: partnerEmail
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfileDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 25hi2tslsow20
+  /api/v1/get-partner:
+    get:
+      tags:
+        - 1. Authentication
+      summary: Fetch All Partners
+      operationId: getPartner
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 591yhanjaf3wf
+  '/api/v1/account/statement/{accountNumber}':
+    get:
+      tags:
+        - 2. Account Management
+      summary: Statement inquiry API for Onit wallet
+      operationId: accountStatement
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Customer account number
+          required: true
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: Start date for the query in the format yyyy-MM-dd
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: End date for the query in the format yyyy-MM-dd
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatementInquiryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: vn53v9x8ebnqs
+  '/api/v1/account/query/{originatorRequestId}':
+    get:
+      tags:
+        - 2. Account Management
+      summary: Query Customer After Creation API on callback failure
+      operationId: queryCustomer
+      parameters:
+        - name: originatorRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOpeningResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: k3kbiq74kvtv8
+  '/api/v1/account/list/{partnerEmail}':
+    get:
+      tags:
+        - 2. Account Management
+      summary: List of partner accounts API
+      operationId: getCustomerAccounts
+      parameters:
+        - name: partnerEmail
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerAccountsModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: nov0ayubeabtn
+  '/api/v1/account/info/{accountNumber}':
+    get:
+      tags:
+        - 2. Account Management
+      summary: Customer Account Info API
+      operationId: getCustomerAccountInfo
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfoModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: jjro22wymlrro
+  '/api/v1/account/balance/{accountNumber}':
+    get:
+      tags:
+        - 2. Account Management
+      summary: Balance Inquiry API for Onit wallet
+      operationId: balanceInquiry
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Customer account number
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceInquiryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 655c8855z3fpr
+components:
+  schemas:
+    StatusModel:
+      required:
+        - status
+        - statusCode
+      type: object
+      properties:
+        statusCode:
+          type: string
+          description: 4-Digit Status Code
+          example: '1000'
+        status:
+          type: string
+          description: Status Description
+          example: Success
+      x-stoplight:
+        id: y1gwrz0rsymj8
+    ErrorMessage:
+      required:
+        - message
+        - status
+        - timestamp
+      type: object
+      properties:
+        status:
+          type: string
+          description: 4-Digit Status Code
+          example: '5001'
+        message:
+          type: string
+          description: Status Description
+          example: Account Status Error
+        description:
+          type: string
+          description: Additional Status Information
+          example: Account is dormant
+        timestamp:
+          type: string
+          description: 'Transaction Timestamp: Format YYYY-MM-DDTHH24:MI:SS'
+          example: '2020-02-16T15:50:00'
+        path:
+          type: string
+          description: URL
+          example: 'http://api.onit.com/api/v1/account'
+      x-stoplight:
+        id: jdu2m8w3oomu3
+    WithdrawalRequest:
+      required:
+        - amount
+        - callbackUrl
+        - channel
+        - destinationAccount
+        - narration
+        - originatorRequestId
+        - product
+        - sourceAccount
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        sourceAccount:
+          type: string
+          description: Source Account Number
+          example: '001001002002'
+        destinationAccount:
+          type: string
+          description: Destination Account Number
+          example: '254700123456'
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        channel:
+          type: string
+          description: 'Destination of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: MPESA
+          enum:
+            - MPESA
+            - AIRTELMONEY
+        channelType:
+          type: string
+          description: 'Destination Channel Type: {TILL|PAYBILL|MOBILE}'
+          example: TILL
+          enum:
+            - TILL
+            - PAYBILL
+            - MOBILE
+        destinationReference:
+          type: string
+          description: Reference to be associated with the destination account
+          example: '011235687'
+        product:
+          type: string
+          description: Source Account Product ID
+          example: LABC313
+        narration:
+          type: string
+          description: Transaction Narration
+          example: The narration
+        callbackUrl:
+          type: string
+          description: Initiator Callback URL
+          example: 'https://partner.apis/account/callback'
+      x-stoplight:
+        id: ynqx97goee3bl
+    JSONObject:
+      type: object
+      description: Applicable Taxes
+      example:
+        taxes:
+          total: 200.88
+          excise: 200.88
+      x-stoplight:
+        id: dsd8cdymbjbof
+    WithdrawalResponse:
+      required:
+        - accountBalance
+        - amount
+        - channel
+        - charges
+        - destinationAccount
+        - originatorRequestId
+        - sourceAccount
+        - taxes
+        - transactionReference
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        sourceAccount:
+          type: string
+          description: Source Account Number
+          example: '001001002002'
+        destinationAccount:
+          type: string
+          description: Destination Account Number
+          example: '254700123456'
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        accountBalance:
+          type: number
+          description: Source Account Balance After Transaction
+          format: double
+          example: 30000.58
+        charges:
+          $ref: '#/components/schemas/JSONObject'
+        taxes:
+          $ref: '#/components/schemas/JSONObject'
+        transactionReference:
+          type: string
+          description: Bank Unique Transaction Identifier
+          example: ON-14879134-0982
+        channel:
+          type: string
+          description: 'Destination of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: MPESA
+        channelTransactionReference:
+          type: string
+          description: Transaction reference from the channel
+          example: TAT9WCL41T
+      x-stoplight:
+        id: 6g0q6znxx9wbz
+    ReversalRequest:
+      required:
+        - originatorRequestId
+        - transactionDescription
+        - transactionReference
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        transactionReference:
+          type: string
+          description: Bank Unique Transaction Identifier
+          example: ON-14879134-0982
+        transactionDescription:
+          type: string
+          description: 'Transaction Event: {DEPOSIT|PAYMENT}'
+          example: PAYMENT
+          enum:
+            - DEPOSIT
+            - PAYMENT
+      x-stoplight:
+        id: fqssc1bf6xfyt
+    RegisterCallbackModel:
+      required:
+        - callbackUrl
+        - channel
+        - userId
+      type: object
+      properties:
+        userId:
+          type: string
+        callbackUrl:
+          type: string
+        channel:
+          type: string
+      x-stoplight:
+        id: 7y4sqz73pyapd
+    PaymentRequest:
+      required:
+        - amount
+        - currency
+        - destinationAccount
+        - event
+        - narration
+        - originatorRequestId
+        - product
+        - sourceAccount
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        sourceAccount:
+          type: string
+          description: Source Account Number
+          example: '001001002002'
+        destinationAccount:
+          type: string
+          description: Destination Account Number
+          example: '002002003003'
+        currency:
+          type: string
+          description: ISO 4217 alphabetic code
+          example: KES
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        narration:
+          type: string
+          description: Transaction Narration
+          example: The narration
+        event:
+          type: string
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT}'
+          example: PAYMENT
+        product:
+          type: string
+          description: Payment Product ID
+          example: PABC313
+      x-stoplight:
+        id: f25s9156a45kd
+    JsonNode:
+      type: object
+      description: Applicable Taxes
+      example:
+        taxes:
+          total: 200.88
+          excise: 200.88
+      x-stoplight:
+        id: jjga8mg1ish9a
+    PaymentResponse:
+      required:
+        - amount
+        - charges
+        - destinationAccount
+        - event
+        - originatorRequestId
+        - product
+        - sourceAccount
+        - taxes
+        - transactionRef
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        sourceAccount:
+          type: string
+          description: Source Account Number
+          example: '001001002002'
+        destinationAccount:
+          type: string
+          description: Destination Account Number
+          example: '002002003003'
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        charges:
+          $ref: '#/components/schemas/JsonNode'
+        taxes:
+          $ref: '#/components/schemas/JsonNode'
+        transactionRef:
+          type: string
+          description: Bank Unique Transaction Identifier
+          example: ON-14879134-0982
+        event:
+          type: string
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT}'
+          example: PAYMENT
+        product:
+          type: string
+          description: Payment Product ID
+          example: PABC313
+      x-stoplight:
+        id: utkdigjrckelm
+    TopUpRequest:
+      required:
+        - amount
+        - callbackUrl
+        - channel
+        - destinationAccount
+        - event
+        - narration
+        - originatorRequestId
+        - product
+        - sourceAccount
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        destinationAccount:
+          type: string
+          description: Destination Account Number
+          example: '001001002002'
+        sourceAccount:
+          type: string
+          description: Source Account Number
+          example: '254700123456'
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        channel:
+          type: string
+          description: 'Source of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: MPESA
+        product:
+          type: string
+          description: Destination Account Product ID
+          example: LABC313
+        narration:
+          type: string
+          description: Transaction Narration
+          example: The narration
+        event:
+          type: string
+          description: 'Transaction Event To Determine Charges Applied: {SUBSCRIPTION|BET}'
+          example: SUBSCRIPTION
+        callbackUrl:
+          type: string
+          description: Initiator Callback URL
+          example: 'https://partner.apis/account/callback'
+      x-stoplight:
+        id: 0yrv4m7xyu6vi
+    TopUpResponse:
+      required:
+        - accountBalance
+        - amount
+        - channel
+        - destinationAccount
+        - originatorRequestId
+        - sourceAccount
+        - transactionReference
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        destinationAccount:
+          type: string
+          description: Destination Account Number
+          example: '001001002002'
+        sourceAccount:
+          type: string
+          description: Source Account Number
+          example: '254700123456'
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        accountBalance:
+          type: number
+          description: Destination Account Balance After Transaction
+          format: double
+          example: 30000.58
+        transactionReference:
+          type: string
+          description: Bank Unique Transaction Identifier
+          example: ON-14879134-0982
+        channel:
+          type: string
+          description: 'Source of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: MPESA
+        channelTransactionReference:
+          type: string
+          description: Transaction reference from the channel
+          example: TAT9WCL41T
+      x-stoplight:
+        id: l91rfr52ofln2
+    UserModel:
+      required:
+        - partnerEmail
+        - userId
+      type: object
+      properties:
+        userId:
+          type: string
+        partnerName:
+          type: string
+        partnerEmail:
+          type: string
+        mainProduct:
+          type: string
+        mainProductClass:
+          type: string
+        subProduct:
+          type: string
+        subProductClass:
+          type: string
+      x-stoplight:
+        id: ardc7yefdaqdx
+    UserEntity:
+      type: object
+      properties:
+        userId:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+            - KAPU_SUPER_ADMIN
+            - KAPU_ADMIN
+            - KAPU_DEV
+            - KAPU_CHANNELS
+            - PARTNER_ADMIN
+            - PARTNER_API
+            - PARTNER_CHANNELS
+        userTypes:
+          type: string
+          enum:
+            - MANAGEMENT
+            - PARTNER
+            - DEMO
+        enabled:
+          type: boolean
+        creationDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        id:
+          type: integer
+          format: int64
+      x-stoplight:
+        id: j4dappvnxal5w
+    InternalUserDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        organization:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+            - KAPU_SUPER_ADMIN
+            - KAPU_ADMIN
+            - KAPU_DEV
+            - KAPU_CHANNELS
+            - PARTNER_ADMIN
+            - PARTNER_API
+            - PARTNER_CHANNELS
+      x-stoplight:
+        id: 3k6rmzfkr3rwe
+    PasswordReset:
+      required:
+        - currentPassword
+        - newPassword
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+          description: Platform user's username
+          example: Doe
+        currentPassword:
+          type: string
+          description: Platform user's current password
+          example: GK-kwro
+        newPassword:
+          type: string
+          description: Platform user's new password
+          example: GK-!QAZ2wsx
+      x-stoplight:
+        id: ncywqytnthdpa
+    LoanRequestModel:
+      required:
+        - callbackUrl
+        - channel
+        - destinationAccount
+        - loanAmount
+        - narration
+        - originatorRequestId
+        - product
+        - repaymentAccount
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        repaymentAccount:
+          type: string
+          description: Loan Repayment Account Number
+          example: '001001002002'
+        loanAmount:
+          type: number
+          description: Loan Amount
+          format: double
+          example: 20000
+        loanTerm:
+          type: string
+          description: Loan Term
+          example: '6'
+        product:
+          type: string
+          description: Loan Product ID
+          example: LABC313
+        destinationAccount:
+          type: string
+          description: Disbursement Account Number
+          example: '001001002002'
+        channel:
+          type: string
+          description: 'Destination of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: ONIT
+        narration:
+          type: string
+          description: Transaction Narration
+          example: The narration
+        callbackUrl:
+          type: string
+          description: Initiator Callback URL
+          example: 'https://partner.apis/loan/callback'
+      x-stoplight:
+        id: a1prxu02wfxzc
+    LoanResponseModel:
+      required:
+        - charges
+        - dueDate
+        - installmentAmount
+        - installmentDate
+        - loanAccount
+        - loanDate
+        - originatorRequestId
+        - outstandingLoanAmount
+        - principleLoanAmount
+        - product
+        - status
+        - taxes
+        - totalLoanAmount
+        - transactionRef
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        transactionRef:
+          type: string
+          description: Bank Unique Transaction Identifier
+          example: ON-14879134-0982
+        product:
+          type: string
+          description: Loan Product ID
+          example: LABC313
+        loanAccount:
+          type: string
+          description: Loan Account Number
+          example: '001001002002'
+        principleLoanAmount:
+          type: number
+          description: Loan Principle
+          format: double
+          example: 20000
+        totalLoanAmount:
+          type: number
+          description: 'Total Loan Amount (including fees, interest and taxes)'
+          format: double
+          example: 22400.34
+        outstandingLoanAmount:
+          type: number
+          description: 'Outstanding Loan Amount (including fees, interest and taxes)'
+          format: double
+          example: 17400.34
+        charges:
+          $ref: '#/components/schemas/JSONObject'
+        taxes:
+          $ref: '#/components/schemas/JSONObject'
+        status:
+          type: string
+          description: 'Loan Status: {ACTIVE, ARREARS, PENDING}'
+          example: ACTIVE
+        loanDate:
+          type: string
+          description: 'Loan Disbursement Date: Format YYYY-MM-DDTHH24:MI:SS'
+          format: date-time
+        dueDate:
+          type: string
+          description: 'Loan Due Date: Format YYYY-MM-DDTHH24:MI:SS'
+          example: '2024-01-01T01:01:00'
+        installmentDate:
+          type: string
+          description: 'Next Installment Date: Format YYYY-MM-DDTHH24:MI:SS'
+          format: date-time
+        installmentAmount:
+          type: number
+          description: Next Installment Amount
+          format: double
+          example: 3534.64
+      x-stoplight:
+        id: arbzp7eswl8w4
+    LoanRepaymentModel:
+      required:
+        - amount
+        - callbackUrl
+        - channel
+        - loanAccount
+        - narration
+        - originatorRequestId
+        - product
+        - sourceAccount
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        sourceAccount:
+          type: string
+          description: Source Account for Funds
+          example: '001001002002'
+        loanAccount:
+          type: string
+          description: Loan Account Number Generated on Loan Request
+          example: '001001002002'
+        channel:
+          type: string
+          description: 'Source of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: ONIT
+        amount:
+          type: number
+          description: Repayment Amount
+          format: double
+          example: 20000
+        product:
+          type: string
+          description: Loan Product ID
+          example: LABC313
+        narration:
+          type: string
+          description: Transaction Narration
+          example: The narration
+        callbackUrl:
+          type: string
+          description: Initiator Callback URL
+          example: 'https://partner.apis/loan/callback'
+      x-stoplight:
+        id: nliuh1q8slbcm
+    AddLimitModel:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        effectiveDate:
+          type: string
+          format: date-time
+        expiryDate:
+          type: string
+          format: date-time
+        limitAmount:
+          type: number
+          format: double
+      x-stoplight:
+        id: larwmxogxqdej
+    IdentifierDTO:
+      required:
+        - identifier
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: User Identifier
+          example: 0003/john@doe.com
+      x-stoplight:
+        id: nrsi1h3yxt0lq
+    VerifyOtpDTO:
+      type: object
+      properties:
+        identifier:
+          type: string
+        otp:
+          type: string
+      x-stoplight:
+        id: 8rpgplemblwzf
+    AuthRequestModel:
+      required:
+        - identifier
+        - password
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: User Id or email
+          example: 1234/john@doe.com
+        password:
+          type: string
+          description: User Password
+          example: kp3yu7
+      x-stoplight:
+        id: ahiqlallqiybz
+    AuthResponseModel:
+      required:
+        - access_token
+        - email
+        - role
+        - userType
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Partner Identifier
+          example: '00003'
+        email:
+          type: string
+          description: User email
+          example: john@doe.com
+        access_token:
+          type: string
+          description: JSON Web Token
+          example: header.payload.signature
+        validity:
+          type: integer
+          description: Validity of the JWT in minutes
+          format: int32
+          example: 1440
+        expiry:
+          type: string
+          description: 'Token Expiry Date: Format YYYY-MM-DDTHH24:MI:SS.SSS'
+          format: date-time
+        role:
+          type: string
+          description: User role
+          example: KAPU_ADMIN
+          enum:
+            - KAPU_SUPER_ADMIN
+            - KAPU_ADMIN
+            - KAPU_DEV
+            - KAPU_CHANNELS
+            - PARTNER_ADMIN
+            - PARTNER_API
+            - PARTNER_CHANNELS
+        userType:
+          type: string
+          description: User Type
+          example: MANAGEMENT
+          enum:
+            - MANAGEMENT
+            - PARTNER
+            - DEMO
+      x-stoplight:
+        id: 7q5j1enrmp9r2
+    AdditionalDocumentsModel:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        documentFirstName:
+          type: string
+        documentLastName:
+          type: string
+      description: Additional Documents
+      x-stoplight:
+        id: n19ffj9x8zctr
+    DocumentModel:
+      required:
+        - documentNumber
+        - documentType
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: 'Identity Document Type: {NATIONAL_ID|PASSPORT|ALIEN_ID|MILITARY_ID}'
+          example: NATIONAL_ID
+        documentNumber:
+          type: string
+          description: Document Number
+          example: '12345678'
+        documentFirstName:
+          type: string
+          description: First Name on Identity Document (If Different From First Name Provided)
+          example: JOHN
+        documentLastName:
+          type: string
+          description: Last Name on Identity Document (If Different From Last Name Provided)
+          example: DOE
+        additionalDocuments:
+          type: array
+          description: Additional Documents
+          items:
+            $ref: '#/components/schemas/AdditionalDocumentsModel'
+      description: Identity Document
+      x-stoplight:
+        id: k2eb6p8oasvlj
+    SubAccountModel:
+      required:
+        - document
+        - firstName
+        - lastName
+        - originatorRequestId
+        - parentClientId
+        - phoneNumber
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        firstName:
+          type: string
+          description: First Name
+          example: John
+        middleName:
+          type: string
+          description: Middle Name
+          example: Micheal
+        lastName:
+          type: string
+          description: Last Name
+          example: Doe
+        parentClientId:
+          type: string
+          description: Parent Customer Identifier
+          example: '001112223'
+        document:
+          $ref: '#/components/schemas/DocumentModel'
+        phoneNumber:
+          type: string
+          description: Phone Number
+          example: '0711223344'
+        email:
+          type: string
+          description: Email Address
+          example: person@domain.com
+      x-stoplight:
+        id: qldjckf03krnp
+    AccountOpeningResponse:
+      required:
+        - accountNumber
+        - accountOpeningDate
+        - customerId
+        - originatorRequestId
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        customerId:
+          type: string
+          description: Unique Customer Identifier
+          example: '001112223'
+        accountNumber:
+          type: string
+          description: Account Number
+          example: '001001002002'
+        accountOpeningDate:
+          type: string
+          description: 'Account Opening Date: Format YYYY-MM-DDTHH24:MI:SS'
+          format: date-time
+      description: Final result from account opening request
+      x-stoplight:
+        id: n1q3ir4vg26jl
+    AccountEntityModel:
+      required:
+        - accountName
+        - accountType
+        - currency
+      type: object
+      properties:
+        accountType:
+          type: string
+          description: 'Account Type: {CURRENT|SAVINGS|FIXED_DEPOSIT}'
+          example: CURRENT
+        accountName:
+          type: string
+          description: Account Title/Label
+          example: John Doe
+        currency:
+          type: string
+          description: ISO 4217 alphabetic code
+          example: KES
+      description: Customer Account Data
+      x-stoplight:
+        id: 08ttrk2z5w4do
+    AccountOpeningRequest:
+      required:
+        - accountInfo
+        - callbackUrl
+        - contactInfo
+        - kyc
+        - originatorRequestId
+        - sourceOfFunds
+        - taxDetails
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        accountInfo:
+          $ref: '#/components/schemas/AccountEntityModel'
+        kyc:
+          $ref: '#/components/schemas/KYCModel'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfoModel'
+        sourceOfFunds:
+          $ref: '#/components/schemas/SourceOfFundsModel'
+        taxDetails:
+          $ref: '#/components/schemas/TaxDetailsModel'
+        callbackUrl:
+          type: string
+          description: Initiator Callback URL
+          example: 'https://partner.apis/account/callback'
+      x-stoplight:
+        id: np50f93wwfl7v
+    ContactInfoModel:
+      required:
+        - email
+        - phoneNumber
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: Phone Number
+          example: '254700123456'
+        alternativePhoneNumber:
+          type: string
+          description: Alternative Phone Number
+          example: '254700123456'
+        email:
+          type: string
+          description: Email Address
+          example: person@domain.com
+        postalAddress:
+          type: string
+          description: Postal Address
+          example: P.O. Box 123456 - 00100
+        physicalAddress:
+          $ref: '#/components/schemas/PhysicalAddressModel'
+      description: Customer Contact Data
+      x-stoplight:
+        id: tlfaclaqkakw4
+    KYCModel:
+      required:
+        - dateOfBirth
+        - document
+        - firstName
+        - gender
+        - lastName
+        - nationality
+        - nextOfKin
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First Name
+          example: John
+        middleName:
+          type: string
+          description: Middle Name
+          example: Micheal
+        lastName:
+          type: string
+          description: Last Name
+          example: Doe
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 code
+          example: KE
+        maritalStatus:
+          type: string
+          description: 'Marital Status: {SINGLE|MARRIED|COMMON-LAW|SEPARATED|DIVORCED|WIDOWED}'
+          example: MARRIED
+        gender:
+          type: string
+          description: 'Gender: {Male|Female|Other}'
+          example: Female
+        dateOfBirth:
+          type: string
+          description: 'Date of Birth: Format YYYY-MM-DD'
+          format: date-time
+        document:
+          $ref: '#/components/schemas/DocumentModel'
+        nextOfKin:
+          $ref: '#/components/schemas/NextOfKinModel'
+      description: Customer Bio Data
+      x-stoplight:
+        id: sphcguer0tt5r
+    NextOfKinModel:
+      required:
+        - firstName
+        - lastName
+        - phoneNumber
+        - relationship
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First Name
+          example: John
+        middleName:
+          type: string
+          description: Middle Name
+          example: Micheal
+        lastName:
+          type: string
+          description: Last Name
+          example: Doe
+        relationship:
+          type: string
+          description: 'Relationship with Primary Customer: {SPOUSE|PARTNER|PARENT|CHILD|SIBLING|GRANDPARENT|GRANDCHILD|AUNT|UNCLE|NEPHEW|NIECE|FRIEND}'
+          example: SPOUSE
+        phoneNumber:
+          type: string
+          description: Phone Number
+          example: '254700123456'
+        email:
+          type: string
+          description: Email Address
+          example: person@domain.com
+        postalAddress:
+          type: string
+          description: Postal Address
+          example: P.O. Box 123456 - 00100
+      description: Next of Kin
+      x-stoplight:
+        id: grmcyfqeis0gq
+    PhysicalAddressModel:
+      required:
+        - country
+        - county
+        - road
+        - town
+      type: object
+      properties:
+        buildingName:
+          type: string
+          description: Buiding Name
+          example: XXYY Apartments
+        road:
+          type: string
+          description: Road Name
+          example: This or That Road
+        town:
+          type: string
+          description: Town Name
+          example: This or That Town
+        county:
+          type: string
+          description: '2-digit county code as specified by https://www.devolution.go.ke/county-information '
+          example: '01'
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 code
+          example: KE
+      description: Physical Address
+      x-stoplight:
+        id: 7lhe3l4aqyeva
+    SourceOfFundsModel:
+      required:
+        - employmentType
+      type: object
+      properties:
+        employmentType:
+          type: string
+          description: 'Employment Type: {SELF-EMPLOYED|FULL-TIME|PART-TIME|CONTRACT|TEMPORARY|INTERNSHIP|COMMISSION-BASED|VOLUNTEER|UNEMPLOYED}'
+          example: KE
+        employer:
+          type: string
+          description: Employer Name
+          example: The Employer
+        occupation:
+          type: string
+          description: Occupation
+          example: Customer Service
+        natureOfBusiness:
+          type: string
+          description: Nature of Business
+          example: Banking
+      description: Source of Funds
+      x-stoplight:
+        id: 3d5rl7kemesgh
+    TaxDetailsModel:
+      required:
+        - pin
+      type: object
+      properties:
+        taxResidenceCountry:
+          type: string
+          description: ISO 3166-1 alpha-2 code
+          example: KE
+        dualCitizenship:
+          type: string
+          description: ISO 3166-1 alpha-2 code
+          example: KE
+        pin:
+          type: string
+          description: KRA PIN
+          example: P052246430R
+      description: Customer Tax Data
+      x-stoplight:
+        id: 8tikcede7zrd4
+    UserProfileDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+          enum:
+            - KAPU_SUPER_ADMIN
+            - KAPU_ADMIN
+            - KAPU_DEV
+            - KAPU_CHANNELS
+            - PARTNER_ADMIN
+            - PARTNER_API
+            - PARTNER_CHANNELS
+        userType:
+          type: string
+          enum:
+            - MANAGEMENT
+            - PARTNER
+            - DEMO
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+        createdOn:
+          type: string
+          format: date-time
+      x-stoplight:
+        id: itlc4t0ta8dr5
+    UserDto:
+      type: object
+      properties:
+        partnerName:
+          type: string
+        partnerEmail:
+          type: string
+        mainProduct:
+          type: string
+        mainProductClass:
+          type: string
+        subProduct:
+          type: string
+        subProductClass:
+          type: string
+        createdOn:
+          type: string
+          format: date-time
+      x-stoplight:
+        id: z1sg5ggcmliuu
+    StatementInquiryResponse:
+      required:
+        - amount
+        - transactionDateTime
+        - transactionEvent
+        - transactionRef
+        - transactionType
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Transaction Amount
+          format: double
+          example: 20000
+        transactionDateTime:
+          type: string
+          description: 'Account Opening Date: Format YYYY-MM-DDTHH24:MI:SS'
+          format: date-time
+        transactionRef:
+          type: string
+          description: Bank Unique Transaction Identifier
+          example: ON-14879134-0982
+        transactionType:
+          type: string
+          description: 'Transaction Type: {CASH_CREDIT|CASH_DEBIT|TRANSFER_CREDIT|TRANSFER_DEBIT}'
+          example: CASH_CREDIT
+        transactionEvent:
+          type: string
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT|BET}'
+          example: BET
+      x-stoplight:
+        id: kg8eic7wud1qz
+    CreditLimitModel:
+      required:
+        - availableLimit
+        - creditLimit
+        - expiryDate
+      type: object
+      properties:
+        creditLimit:
+          type: number
+          description: Credit Limit
+          format: double
+          example: 100000
+        availableLimit:
+          type: number
+          description: Available Limit
+          format: double
+          example: 70000
+        expiryDate:
+          type: string
+          description: 'Limit Expiry Date: Format YYYY-MM-DDTHH24:MI:SS'
+          example: '2024-01-01T01:01:00'
+      x-stoplight:
+        id: s166wzs16rlax
+    CustomerAccountsModel:
+      required:
+        - accountName
+        - accountNumber
+        - accountType
+        - product
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: Account Number
+          example: '001001002002'
+        accountName:
+          type: string
+          description: Account Name
+          example: John Doe
+        accountType:
+          type: string
+          description: 'Account Type: {CURRENT|SAVINGS|FIXED_DEPOSIT}'
+          example: CURRENT
+        product:
+          type: string
+          description: Account Product ID
+          example: ABC313
+      x-stoplight:
+        id: 430ugjd3mpatj
+    AccountInfoModel:
+      required:
+        - accountBalance
+        - accountName
+        - accountOpeningDate
+        - accountProduct
+        - accountStatus
+        - accountType
+        - currency
+      type: object
+      properties:
+        accountType:
+          type: string
+          description: 'Account Type: {CURRENT|SAVINGS|FIXED_DEPOSIT}'
+          example: CURRENT
+        accountStatus:
+          type: string
+          description: 'Account Status: {ACTIVE|DORMANT|SUSPENDED|CLOSED}'
+          example: ACTIVE
+        accountName:
+          type: string
+          description: Account Title/Label
+          example: John Doe
+        accountOpeningDate:
+          type: string
+          description: 'Account Opening Date: Format YYYY-MM-DDTHH24:MI:SS'
+          format: date-time
+        currency:
+          type: string
+          description: ISO 4217 alphabetic code
+          example: KES
+        accountBalance:
+          type: number
+          description: Account Balance
+          format: double
+          example: 55012.34
+        accountProduct:
+          type: string
+          description: Account Product ID
+          example: ABC313
+      x-stoplight:
+        id: 6kfgei0fk9zcr
+    BalanceInquiryResponse:
+      required:
+        - accountBalance
+        - accountNumber
+        - accountStatus
+        - currency
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: Account Number
+          example: '001001002002'
+        accountBalance:
+          type: string
+          description: Account Balance
+          example: '55012.34'
+        currency:
+          type: string
+          description: ISO 4217 alphabetic code
+          example: KES
+        accountStatus:
+          type: string
+          description: 'Account Status: {ACTIVE|DORMANT|SUSPENDED|CLOSED}'
+          example: ACTIVE
+      x-stoplight:
+        id: 98lfctux2ito7
