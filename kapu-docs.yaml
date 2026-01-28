@@ -1,18 +1,18 @@
 openapi: 3.0.1
 x-stoplight:
-  id: rwid76fni05ts
+  id: 6ukddqpacbhmq
 info:
-  title: Kapu Pay
+  title: Kapu API
   description: API documentation
   version: '1.0'
 servers:
-  - url: 'http://kapuapi.dibon.co.ke/'
+  - url: 'https://kapuapi.dibon.co.ke/'
     description: Generated server url
 paths:
   '/api/v1/deactivate-partner/{email}':
     put:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Activate or Deactivate partner
       operationId: deactivatePartner
       parameters:
@@ -35,12 +35,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: i5ug5oukzkmws
+        id: md0ka59ye43e3
   /api/v1/transaction/withdraw:
     post:
       tags:
-        - 3. Transaction Management
-      summary: Withdraw API for Onit Wallet
+        - Transaction Management
+      summary: Withdraw API
       operationId: withdraw
       requestBody:
         content:
@@ -86,81 +86,12 @@ paths:
                       schema:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 70doocbevijlo
-  /api/v1/transaction/reverse:
-    post:
-      tags:
-        - 3. Transaction Management
-      summary: Partner initiated reversals for deposits and tranfers/payments
-      operationId: reversal
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReversalRequest'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StatusModel'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-        '404':
-          description: Account Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-      callbacks:
-        onCompletion:
-          '{callbackUrl}': {}
-      x-stoplight:
-        id: cwnu67gwdndwt
-  /api/v1/transaction/register:
-    post:
-      tags:
-        - 3. Transaction Management
-      summary: Register Callback URL
-      operationId: registerUrl
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RegisterCallbackModel'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StatusModel'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-        '404':
-          description: Account Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-      x-stoplight:
-        id: o4cqpt88sdomg
+        id: 31wlhbwa5wl3l
   /api/v1/transaction/pay:
     post:
       tags:
         - 3. Transaction Management
-      summary: Transaction API for Onit Wallet
+      summary: Account to Account Funds Transfer API
       operationId: makePayment
       requestBody:
         content:
@@ -188,12 +119,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: uwcjldg78c8nv
+        id: yfagc4w9yglm1
   /api/v1/transaction/deposit:
     post:
       tags:
         - 3. Transaction Management
-      summary: Deposit API for Onit Wallet
+      summary: Deposit API
       operationId: deposit
       requestBody:
         content:
@@ -239,11 +170,11 @@ paths:
                       schema:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: lb37bh948o3d9
+        id: fs8o69zmwaur3
   /api/v1/register-partner:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Partner Registration
       operationId: register
       requestBody:
@@ -266,11 +197,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: vbx5axwiava67
+        id: 4uv0auesm34y1
   /api/v1/register-internal:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Internal User Registration
       operationId: registerInternal
       requestBody:
@@ -293,11 +224,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: w5g98hmiqa81e
+        id: vjh8a989igyrh
   /api/v1/password-reset:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Password Reset Endpoint
       operationId: passwordReset
       requestBody:
@@ -320,12 +251,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 1a2c6rfsbyk7j
+        id: bsywdyy4vkw9l
   /api/v1/lending/loanRequest:
     post:
       tags:
-        - 4. Loan Management
-      summary: Loan Request API for Onit
+        - Loan Management
+      summary: Loan Request API
       operationId: loanRequest
       requestBody:
         content:
@@ -365,12 +296,12 @@ paths:
                       schema:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: z35qczvx6bf18
+        id: v1ipyjhyag6b7
   /api/v1/lending/loanRepayment:
     post:
       tags:
-        - 4. Loan Management
-      summary: Loan Repayment API for Onit
+        - Loan Management
+      summary: Loan Repayment API
       operationId: loanRepayment
       requestBody:
         content:
@@ -410,27 +341,173 @@ paths:
                       schema:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 9sxr02xkc9cg2
-  /api/v1/lending/creditLimit/add:
+        id: 484uptx79sszn
+  /api/v1/demo/withdraw:
     post:
       tags:
-        - 4. Loan Management
-      operationId: addCreditLimit
+        - Demo
+      summary: Withdraw API
+      operationId: withdraw_1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddLimitModel'
+              $ref: '#/components/schemas/WithdrawalRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Withdrawal result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/WithdrawalResponse'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: ohbsybuvcktd1
+  /api/v1/demo/pay:
+    post:
+      tags:
+        - Demo
+      summary: Account to Account Funds Transfer API
+      operationId: makePayment_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
         required: true
       responses:
         '200':
-          description: OK
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: lnzbtpxl44jd1
+        id: x4smyqgc21aju
+  /api/v1/demo/deposit:
+    post:
+      tags:
+        - Demo
+      summary: Deposit API
+      operationId: deposit_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopUpRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      callbacks:
+        onCompletion:
+          '{callbackUrl}':
+            post:
+              description: Deposit result
+              responses:
+                '200':
+                  description: Success
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/TopUpResponse'
+                '400':
+                  description: Error
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: ti5ovv3s6cmzi
+  /api/v1/demo/create/subAccount:
+    post:
+      tags:
+        - Demo
+      summary: Account opening for sub-accounts for demo
+      operationId: subAccountOpening
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubAccountModel'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOpeningResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: o518xead1au09
   /api/v1/deactivate:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Deactivate/Activate user by user ID or Email
       operationId: register_1
       requestBody:
@@ -453,11 +530,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: cp3z8p6vw18nj
+        id: 2lzidy2u6wgc2
   /api/v1/auth/verify-otp:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Verify OTP
       operationId: verifyOtp
       requestBody:
@@ -480,11 +557,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: hkbpwoxbgxndt
+        id: dhbxxfyh3ypvm
   /api/v1/auth/resend-otp:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Resend OTP
       operationId: resendOtp
       requestBody:
@@ -507,11 +584,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 2mxb2e6gkm51m
+        id: 7j6dhk8489htb
   /api/v1/auth/jwt:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Authentication API
       operationId: Auth
       requestBody:
@@ -534,11 +611,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: zjj4ot9tyavmj
+        id: vkab57zh8wvla
   /api/v1/auth/forgot-password:
     post:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Forgot Password Endpoint
       operationId: forgotPassword
       requestBody:
@@ -561,13 +638,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: yuls4p9a9httk
+        id: df8cj781g138s
   /api/v1/account/create/subAccount:
     post:
       tags:
-        - 2. Account Management
-      summary: Account opening for sub-accounts on Onit core banking wallet
-      operationId: subAccountOpening
+        - Account Management
+      summary: Account opening for sub-accounts on core banking
+      operationId: subAccountOpening_1
       requestBody:
         content:
           application/json:
@@ -588,12 +665,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: cppjvvqgvcwhz
+        id: skbxe18w6nol5
   /api/v1/account/create/individual:
     post:
       tags:
-        - 2. Account Management
-      summary: Account opening on Onit core banking wallet
+        - Account Management
+      summary: Account opening on core banking
       operationId: accountOpening
       requestBody:
         content:
@@ -633,11 +710,45 @@ paths:
                       schema:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: g997xfpfjf2rf
+        id: d4ay2nu8n9evl
+  '/api/v1/update-user/{identifier}':
+    patch:
+      tags:
+        - Authentication
+      summary: Update User Profile by ID or Email
+      description: Only send details you need to update
+      operationId: updateUserById
+      parameters:
+        - name: identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUpdateDTO'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 2104xy3n43jvg
   /api/v1/user:
     get:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Get User Profile by ID or Email
       operationId: getUserById
       parameters:
@@ -660,11 +771,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 2y9hurwv4d8d7
+        id: nymruyn7zyt5x
   /api/v1/user-profile:
     get:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Get Logged In User Profile
       operationId: getUser
       responses:
@@ -681,12 +792,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 6z4ojlvnzixp3
+        id: zvvdfqf71iujd
   '/api/v1/transaction/query/{event}/{transactionRef}':
     get:
       tags:
         - 3. Transaction Management
-      summary: Query Transaction By Transaction Reference API for Onit Wallet
+      summary: Query Transaction By Core Banking Transaction Reference API
       operationId: queryTransactionByTransactionReference
       parameters:
         - name: event
@@ -725,12 +836,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: gwq8xlhzsozd8
+        id: itfaed9s06vg0
   '/api/v1/transaction/query/originatorRequestId/{event}/{originatorRequestId}':
     get:
       tags:
         - 3. Transaction Management
-      summary: Query Transaction By Request Id API for Onit Wallet
+      summary: Query Transaction By Originator Request Id API
       operationId: queryTransactionByRequestId
       parameters:
         - name: event
@@ -769,44 +880,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: ao6zy71bvhzll
-  '/api/v1/transaction/charges/{event}':
-    get:
-      tags:
-        - 3. Transaction Management
-      summary: Query Event Charges API for Onit Wallet
-      operationId: getEventCharges
-      parameters:
-        - name: event
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/JSONObject'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-        '404':
-          description: Account Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-      x-stoplight:
-        id: fpuzrvhk42myq
+        id: 21dd7yo0i70lv
   /api/v1/partner:
     get:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Fetch Partner Info
       operationId: getSinglePartner
       parameters:
@@ -829,12 +907,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 62l702if3rybb
+        id: tikhtfgjfv46r
+  /api/v1/partner-user:
+    get:
+      tags:
+        - Authentication
+      summary: Fetch All Partner Users for Logged in partner
+      operationId: getAllUsersForLoggedInPartner
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfileDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: o1qjumw2ks377
+  /api/v1/management-user:
+    get:
+      tags:
+        - Authentication
+      summary: Fetch All Management Users
+      operationId: getAllManagementUsers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfileDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: d13zvf8yue53f
   '/api/v1/lending/loanStatement/{loanAccount}':
     get:
       tags:
-        - 4. Loan Management
-      summary: Loan Statement Request API for Onit
+        - Loan Management
+      summary: Loan Statement Request API
       operationId: loanStatement
       parameters:
         - name: loanAccount
@@ -866,12 +990,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 37yiqnr3uyjh2
+        id: lb6uv88jn7shg
   '/api/v1/lending/loanBalance/{productId}/{accountNumber}':
     get:
       tags:
-        - 4. Loan Management
-      summary: Loan Balance Request API for Onit
+        - Loan Management
+      summary: Loan Balance Request API
       operationId: loanBalance
       parameters:
         - name: productId
@@ -900,12 +1024,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 7l83apokflszb
+        id: 3hb2rc2e809ej
   '/api/v1/lending/creditLimit/{productId}/{accountNumber}':
     get:
       tags:
-        - 4. Loan Management
-      summary: Credit Limit Check Request API for Onit
+        - Loan Management
+      summary: Credit Limit Check Request API
       operationId: creditLimit
       parameters:
         - name: productId
@@ -934,11 +1058,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: gi42vzmanzmaf
+        id: h6hax1o0b38v3
   /api/v1/get-user:
     get:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Fetch All Partner Users
       operationId: getAllUsers
       parameters:
@@ -963,11 +1087,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 25hi2tslsow20
+        id: 4rdmah1xe70za
   /api/v1/get-partner:
     get:
       tags:
-        - 1. Authentication
+        - Authentication
       summary: Fetch All Partners
       operationId: getPartner
       responses:
@@ -986,12 +1110,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 591yhanjaf3wf
-  '/api/v1/account/statement/{accountNumber}':
+        id: ml9jhm8yog0yx
+  '/api/v1/demo/statement/{accountNumber}':
     get:
       tags:
-        - 2. Account Management
-      summary: Statement inquiry API for Onit wallet
+        - Demo
+      summary: Statement inquiry API
       operationId: accountStatement
       parameters:
         - name: accountNumber
@@ -1036,11 +1160,216 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: vn53v9x8ebnqs
+        id: uftgu4zo0bp43
+  '/api/v1/demo/query/{event}/{transactionRef}':
+    get:
+      tags:
+        - Demo
+      summary: Query Transaction By Core Banking Transaction Reference API
+      operationId: queryTransactionByTransactionReference_1
+      parameters:
+        - name: event
+          in: path
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT}'
+          required: true
+          schema:
+            type: string
+            enum:
+              - DEPOSIT
+              - WITHDRAW
+              - PAYMENT
+        - name: transactionRef
+          in: path
+          description: Bank Unique Transaction Identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: arx6xwn12skdu
+  '/api/v1/demo/query/originatorRequestId/{event}/{originatorRequestId}':
+    get:
+      tags:
+        - Demo
+      summary: Query Transaction By Originator Request Id API
+      operationId: queryTransactionByRequestId_1
+      parameters:
+        - name: event
+          in: path
+          description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT}'
+          required: true
+          schema:
+            type: string
+            enum:
+              - DEPOSIT
+              - WITHDRAW
+              - PAYMENT
+        - name: originatorRequestId
+          in: path
+          description: Partner unique transaction request ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 3vbkn8b8w4b6o
+  '/api/v1/demo/info/{accountNumber}':
+    get:
+      tags:
+        - Demo
+      summary: Customer Account Info API
+      operationId: getCustomerAccountInfo
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfoModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: p6ulcuqavpuea
+  '/api/v1/demo/balance/{accountNumber}':
+    get:
+      tags:
+        - Demo
+      summary: Balance Inquiry API
+      operationId: balanceInquiry
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Customer account number
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceInquiryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 2qho20fo8wx20
+  '/api/v1/account/statement/{accountNumber}':
+    get:
+      tags:
+        - Account Management
+      summary: Statement inquiry API
+      operationId: accountStatement_1
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Customer account number
+          required: true
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: Start date for the query in the format yyyy-MM-dd
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: End date for the query in the format yyyy-MM-dd
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatementInquiryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: gd877l8clp7y1
   '/api/v1/account/query/{originatorRequestId}':
     get:
       tags:
-        - 2. Account Management
+        - Account Management
       summary: Query Customer After Creation API on callback failure
       operationId: queryCustomer
       parameters:
@@ -1069,11 +1398,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: k3kbiq74kvtv8
+        id: j16amuhtk005q
   '/api/v1/account/list/{partnerEmail}':
     get:
       tags:
-        - 2. Account Management
+        - Account Management
       summary: List of partner accounts API
       operationId: getCustomerAccounts
       parameters:
@@ -1104,13 +1433,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: nov0ayubeabtn
+        id: hpzwu9szy9m0n
+  /api/v1/account/list-accounts:
+    get:
+      tags:
+        - Account Management
+      summary: List of partner accounts API for logged in partner
+      operationId: getPartnerAccountsWhileLoggedIn
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerAccountsModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Account Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      x-stoplight:
+        id: 6py529rhx67gv
   '/api/v1/account/info/{accountNumber}':
     get:
       tags:
-        - 2. Account Management
+        - Account Management
       summary: Customer Account Info API
-      operationId: getCustomerAccountInfo
+      operationId: getCustomerAccountInfo_1
       parameters:
         - name: accountNumber
           in: path
@@ -1137,13 +1495,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: jjro22wymlrro
+        id: 96muy9fd7uyjb
   '/api/v1/account/balance/{accountNumber}':
     get:
       tags:
-        - 2. Account Management
-      summary: Balance Inquiry API for Onit wallet
-      operationId: balanceInquiry
+        - Account Management
+      summary: Balance Inquiry API
+      operationId: balanceInquiry_1
       parameters:
         - name: accountNumber
           in: path
@@ -1171,32 +1529,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
-        id: 655c8855z3fpr
+        id: kplvaw7z47vdu
 components:
   schemas:
-    StatusModel:
-      required:
-        - status
-        - statusCode
-      type: object
-      properties:
-        statusCode:
-          type: string
-          description: 4-Digit Status Code
-          example: '1000'
-        status:
-          type: string
-          description: Status Description
-          example: Success
-      x-stoplight:
-        id: y1gwrz0rsymj8
     ErrorMessage:
       required:
         - message
+        - originatorRequestId
         - status
         - timestamp
       type: object
       properties:
+        originatorRequestId:
+          type: string
+          description: Partner's originator request id
+          example: e9f12-82a-4b-a75f-480fc03904
         status:
           type: string
           description: 4-Digit Status Code
@@ -1218,7 +1565,23 @@ components:
           description: URL
           example: 'http://api.onit.com/api/v1/account'
       x-stoplight:
-        id: jdu2m8w3oomu3
+        id: g1mlifh7nukz4
+    StatusModel:
+      required:
+        - status
+        - statusCode
+      type: object
+      properties:
+        statusCode:
+          type: string
+          description: 4-Digit Status Code
+          example: '1000'
+        status:
+          type: string
+          description: Status Description
+          example: Success
+      x-stoplight:
+        id: efy256c927thv
     WithdrawalRequest:
       required:
         - amount
@@ -1280,7 +1643,7 @@ components:
           description: Initiator Callback URL
           example: 'https://partner.apis/account/callback'
       x-stoplight:
-        id: ynqx97goee3bl
+        id: u38svgih3at7p
     JSONObject:
       type: object
       description: Applicable Taxes
@@ -1289,7 +1652,7 @@ components:
           total: 200.88
           excise: 200.88
       x-stoplight:
-        id: dsd8cdymbjbof
+        id: 83janq2lxke7y
     WithdrawalResponse:
       required:
         - accountBalance
@@ -1342,46 +1705,7 @@ components:
           description: Transaction reference from the channel
           example: TAT9WCL41T
       x-stoplight:
-        id: 6g0q6znxx9wbz
-    ReversalRequest:
-      required:
-        - originatorRequestId
-        - transactionDescription
-        - transactionReference
-      type: object
-      properties:
-        originatorRequestId:
-          type: string
-          description: Initiator Unique Transaction Identifier
-          example: 010101010101-AD
-        transactionReference:
-          type: string
-          description: Bank Unique Transaction Identifier
-          example: ON-14879134-0982
-        transactionDescription:
-          type: string
-          description: 'Transaction Event: {DEPOSIT|PAYMENT}'
-          example: PAYMENT
-          enum:
-            - DEPOSIT
-            - PAYMENT
-      x-stoplight:
-        id: fqssc1bf6xfyt
-    RegisterCallbackModel:
-      required:
-        - callbackUrl
-        - channel
-        - userId
-      type: object
-      properties:
-        userId:
-          type: string
-        callbackUrl:
-          type: string
-        channel:
-          type: string
-      x-stoplight:
-        id: 7y4sqz73pyapd
+        id: lu0u77e3vsl5s
     PaymentRequest:
       required:
         - amount
@@ -1428,7 +1752,7 @@ components:
           description: Payment Product ID
           example: PABC313
       x-stoplight:
-        id: f25s9156a45kd
+        id: mekeh82nvvjir
     JsonNode:
       type: object
       description: Applicable Taxes
@@ -1437,7 +1761,7 @@ components:
           total: 200.88
           excise: 200.88
       x-stoplight:
-        id: jjga8mg1ish9a
+        id: 83awj0l0rh7am
     PaymentResponse:
       required:
         - amount
@@ -1485,7 +1809,7 @@ components:
           description: Payment Product ID
           example: PABC313
       x-stoplight:
-        id: utkdigjrckelm
+        id: z51xks7z5u8wi
     TopUpRequest:
       required:
         - amount
@@ -1537,7 +1861,7 @@ components:
           description: Initiator Callback URL
           example: 'https://partner.apis/account/callback'
       x-stoplight:
-        id: 0yrv4m7xyu6vi
+        id: q7eh55bfl4yex
     TopUpResponse:
       required:
         - accountBalance
@@ -1584,11 +1908,10 @@ components:
           description: Transaction reference from the channel
           example: TAT9WCL41T
       x-stoplight:
-        id: l91rfr52ofln2
+        id: bofx4r75qfwq0
     UserModel:
       required:
         - partnerEmail
-        - userId
       type: object
       properties:
         userId:
@@ -1606,7 +1929,7 @@ components:
         subProductClass:
           type: string
       x-stoplight:
-        id: ardc7yefdaqdx
+        id: 92eoncy4ft4op
     UserEntity:
       type: object
       properties:
@@ -1639,11 +1962,16 @@ components:
           format: date-time
         createdBy:
           type: string
+        updatedOn:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
         id:
           type: integer
           format: int64
       x-stoplight:
-        id: j4dappvnxal5w
+        id: m76b2aluh5jpj
     InternalUserDTO:
       type: object
       properties:
@@ -1666,7 +1994,7 @@ components:
             - PARTNER_API
             - PARTNER_CHANNELS
       x-stoplight:
-        id: 3k6rmzfkr3rwe
+        id: 9fedypa358l06
     PasswordReset:
       required:
         - currentPassword
@@ -1687,7 +2015,7 @@ components:
           description: Platform user's new password
           example: GK-!QAZ2wsx
       x-stoplight:
-        id: ncywqytnthdpa
+        id: h852tqtm1g9ro
     LoanRequestModel:
       required:
         - callbackUrl
@@ -1738,7 +2066,7 @@ components:
           description: Initiator Callback URL
           example: 'https://partner.apis/loan/callback'
       x-stoplight:
-        id: a1prxu02wfxzc
+        id: 60kjwpgkdtue1
     LoanResponseModel:
       required:
         - charges
@@ -1814,7 +2142,7 @@ components:
           format: double
           example: 3534.64
       x-stoplight:
-        id: arbzp7eswl8w4
+        id: p67o8d65dhz5v
     LoanRepaymentModel:
       required:
         - amount
@@ -1861,23 +2189,120 @@ components:
           description: Initiator Callback URL
           example: 'https://partner.apis/loan/callback'
       x-stoplight:
-        id: nliuh1q8slbcm
-    AddLimitModel:
+        id: 6hucxuo1mymzs
+    AdditionalDocumentsModel:
       type: object
       properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        documentFirstName:
+          type: string
+        documentLastName:
+          type: string
+      description: Additional Documents
+      x-stoplight:
+        id: ml2dlf6ymul8v
+    DocumentModel:
+      required:
+        - documentNumber
+        - documentType
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: 'Identity Document Type: {NATIONAL_ID|PASSPORT|ALIEN_ID|MILITARY_ID}'
+          example: NATIONAL_ID
+        documentNumber:
+          type: string
+          description: Document Number
+          example: '12345678'
+        documentFirstName:
+          type: string
+          description: First Name on Identity Document (If Different From First Name Provided)
+          example: JOHN
+        documentLastName:
+          type: string
+          description: Last Name on Identity Document (If Different From Last Name Provided)
+          example: DOE
+        additionalDocuments:
+          type: array
+          description: Additional Documents
+          items:
+            $ref: '#/components/schemas/AdditionalDocumentsModel'
+      description: Identity Document
+      x-stoplight:
+        id: 50o2elly16iy2
+    SubAccountModel:
+      required:
+        - document
+        - firstName
+        - lastName
+        - originatorRequestId
+        - parentClientId
+        - phoneNumber
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        firstName:
+          type: string
+          description: First Name
+          example: John
+        middleName:
+          type: string
+          description: Middle Name
+          example: Micheal
+        lastName:
+          type: string
+          description: Last Name
+          example: Doe
+        parentClientId:
+          type: string
+          description: Parent Customer Identifier
+          example: '001112223'
+        document:
+          $ref: '#/components/schemas/DocumentModel'
+        phoneNumber:
+          type: string
+          description: Phone Number
+          example: '0711223344'
+        email:
+          type: string
+          description: Email Address
+          example: person@domain.com
+      x-stoplight:
+        id: 2bxbaes5ui3gw
+    AccountOpeningResponse:
+      required:
+        - accountNumber
+        - accountOpeningDate
+        - customerId
+        - originatorRequestId
+      type: object
+      properties:
+        originatorRequestId:
+          type: string
+          description: Initiator Unique Transaction Identifier
+          example: 010101010101-AD
+        customerId:
+          type: string
+          description: Unique Customer Identifier
+          example: '001112223'
         accountNumber:
           type: string
-        effectiveDate:
+          description: Account Number
+          example: '001001002002'
+        accountOpeningDate:
           type: string
-          format: date-time
-        expiryDate:
-          type: string
-          format: date-time
-        limitAmount:
-          type: number
-          format: double
+          description: 'Account Opening Date: Format YYYY-MM-DDTHH24:MI:SS'
+          format: date
+      description: Final result from account opening request
       x-stoplight:
-        id: larwmxogxqdej
+        id: c33w2sr2uclqs
     IdentifierDTO:
       required:
         - identifier
@@ -1888,7 +2313,7 @@ components:
           description: User Identifier
           example: 0003/john@doe.com
       x-stoplight:
-        id: nrsi1h3yxt0lq
+        id: rcmio1alrkqwy
     VerifyOtpDTO:
       type: object
       properties:
@@ -1897,7 +2322,7 @@ components:
         otp:
           type: string
       x-stoplight:
-        id: 8rpgplemblwzf
+        id: w4tjvzx5w9dmx
     AuthRequestModel:
       required:
         - identifier
@@ -1913,7 +2338,7 @@ components:
           description: User Password
           example: kp3yu7
       x-stoplight:
-        id: ahiqlallqiybz
+        id: 57jz9cauqymgb
     AuthResponseModel:
       required:
         - access_token
@@ -1964,120 +2389,7 @@ components:
             - PARTNER
             - DEMO
       x-stoplight:
-        id: 7q5j1enrmp9r2
-    AdditionalDocumentsModel:
-      type: object
-      properties:
-        documentType:
-          type: string
-        documentNumber:
-          type: string
-        documentFirstName:
-          type: string
-        documentLastName:
-          type: string
-      description: Additional Documents
-      x-stoplight:
-        id: n19ffj9x8zctr
-    DocumentModel:
-      required:
-        - documentNumber
-        - documentType
-      type: object
-      properties:
-        documentType:
-          type: string
-          description: 'Identity Document Type: {NATIONAL_ID|PASSPORT|ALIEN_ID|MILITARY_ID}'
-          example: NATIONAL_ID
-        documentNumber:
-          type: string
-          description: Document Number
-          example: '12345678'
-        documentFirstName:
-          type: string
-          description: First Name on Identity Document (If Different From First Name Provided)
-          example: JOHN
-        documentLastName:
-          type: string
-          description: Last Name on Identity Document (If Different From Last Name Provided)
-          example: DOE
-        additionalDocuments:
-          type: array
-          description: Additional Documents
-          items:
-            $ref: '#/components/schemas/AdditionalDocumentsModel'
-      description: Identity Document
-      x-stoplight:
-        id: k2eb6p8oasvlj
-    SubAccountModel:
-      required:
-        - document
-        - firstName
-        - lastName
-        - originatorRequestId
-        - parentClientId
-        - phoneNumber
-      type: object
-      properties:
-        originatorRequestId:
-          type: string
-          description: Initiator Unique Transaction Identifier
-          example: 010101010101-AD
-        firstName:
-          type: string
-          description: First Name
-          example: John
-        middleName:
-          type: string
-          description: Middle Name
-          example: Micheal
-        lastName:
-          type: string
-          description: Last Name
-          example: Doe
-        parentClientId:
-          type: string
-          description: Parent Customer Identifier
-          example: '001112223'
-        document:
-          $ref: '#/components/schemas/DocumentModel'
-        phoneNumber:
-          type: string
-          description: Phone Number
-          example: '0711223344'
-        email:
-          type: string
-          description: Email Address
-          example: person@domain.com
-      x-stoplight:
-        id: qldjckf03krnp
-    AccountOpeningResponse:
-      required:
-        - accountNumber
-        - accountOpeningDate
-        - customerId
-        - originatorRequestId
-      type: object
-      properties:
-        originatorRequestId:
-          type: string
-          description: Initiator Unique Transaction Identifier
-          example: 010101010101-AD
-        customerId:
-          type: string
-          description: Unique Customer Identifier
-          example: '001112223'
-        accountNumber:
-          type: string
-          description: Account Number
-          example: '001001002002'
-        accountOpeningDate:
-          type: string
-          description: 'Account Opening Date: Format YYYY-MM-DDTHH24:MI:SS'
-          format: date-time
-      description: Final result from account opening request
-      x-stoplight:
-        id: n1q3ir4vg26jl
+        id: nqdn1hpsgy3yk
     AccountEntityModel:
       required:
         - accountName
@@ -2099,7 +2411,7 @@ components:
           example: KES
       description: Customer Account Data
       x-stoplight:
-        id: 08ttrk2z5w4do
+        id: z23phnvnhynzc
     AccountOpeningRequest:
       required:
         - accountInfo
@@ -2130,7 +2442,7 @@ components:
           description: Initiator Callback URL
           example: 'https://partner.apis/account/callback'
       x-stoplight:
-        id: np50f93wwfl7v
+        id: e8auc8ef0ga7o
     ContactInfoModel:
       required:
         - email
@@ -2157,7 +2469,7 @@ components:
           $ref: '#/components/schemas/PhysicalAddressModel'
       description: Customer Contact Data
       x-stoplight:
-        id: tlfaclaqkakw4
+        id: 5yen99cf4gz94
     KYCModel:
       required:
         - dateOfBirth
@@ -2203,7 +2515,7 @@ components:
           $ref: '#/components/schemas/NextOfKinModel'
       description: Customer Bio Data
       x-stoplight:
-        id: sphcguer0tt5r
+        id: 6cpa17y5vptn6
     NextOfKinModel:
       required:
         - firstName
@@ -2242,7 +2554,7 @@ components:
           example: P.O. Box 123456 - 00100
       description: Next of Kin
       x-stoplight:
-        id: grmcyfqeis0gq
+        id: fasig4xjpv3pj
     PhysicalAddressModel:
       required:
         - country
@@ -2273,7 +2585,7 @@ components:
           example: KE
       description: Physical Address
       x-stoplight:
-        id: 7lhe3l4aqyeva
+        id: qmq34s6wkw05u
     SourceOfFundsModel:
       required:
         - employmentType
@@ -2297,7 +2609,7 @@ components:
           example: Banking
       description: Source of Funds
       x-stoplight:
-        id: 3d5rl7kemesgh
+        id: syd0eokka3iwq
     TaxDetailsModel:
       required:
         - pin
@@ -2317,7 +2629,28 @@ components:
           example: P052246430R
       description: Customer Tax Data
       x-stoplight:
-        id: 8tikcede7zrd4
+        id: 5icbcj7uqs4b3
+    ProfileUpdateDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        role:
+          type: string
+          enum:
+            - KAPU_SUPER_ADMIN
+            - KAPU_ADMIN
+            - KAPU_DEV
+            - KAPU_CHANNELS
+            - PARTNER_ADMIN
+            - PARTNER_API
+            - PARTNER_CHANNELS
+      x-stoplight:
+        id: cu2fqftij1gyg
     UserProfileDTO:
       type: object
       properties:
@@ -2348,11 +2681,13 @@ components:
           enum:
             - ACTIVE
             - INACTIVE
+            - SUCCESS
+            - FAILED
         createdOn:
           type: string
           format: date-time
       x-stoplight:
-        id: itlc4t0ta8dr5
+        id: 8k70hh30tx14r
     UserDto:
       type: object
       properties:
@@ -2371,8 +2706,15 @@ components:
         createdOn:
           type: string
           format: date-time
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+            - SUCCESS
+            - FAILED
       x-stoplight:
-        id: z1sg5ggcmliuu
+        id: 36fjikckqwpql
     StatementInquiryResponse:
       required:
         - amount
@@ -2404,7 +2746,7 @@ components:
           description: 'Transaction Event: {DEPOSIT|WITHDRAW|PAYMENT|BET}'
           example: BET
       x-stoplight:
-        id: kg8eic7wud1qz
+        id: qhbrbe88zogyw
     CreditLimitModel:
       required:
         - availableLimit
@@ -2427,33 +2769,7 @@ components:
           description: 'Limit Expiry Date: Format YYYY-MM-DDTHH24:MI:SS'
           example: '2024-01-01T01:01:00'
       x-stoplight:
-        id: s166wzs16rlax
-    CustomerAccountsModel:
-      required:
-        - accountName
-        - accountNumber
-        - accountType
-        - product
-      type: object
-      properties:
-        accountNumber:
-          type: string
-          description: Account Number
-          example: '001001002002'
-        accountName:
-          type: string
-          description: Account Name
-          example: John Doe
-        accountType:
-          type: string
-          description: 'Account Type: {CURRENT|SAVINGS|FIXED_DEPOSIT}'
-          example: CURRENT
-        product:
-          type: string
-          description: Account Product ID
-          example: ABC313
-      x-stoplight:
-        id: 430ugjd3mpatj
+        id: hlfvpdzricpke
     AccountInfoModel:
       required:
         - accountBalance
@@ -2495,7 +2811,7 @@ components:
           description: Account Product ID
           example: ABC313
       x-stoplight:
-        id: 6kfgei0fk9zcr
+        id: uwn1u36bxn9c0
     BalanceInquiryResponse:
       required:
         - accountBalance
@@ -2521,4 +2837,30 @@ components:
           description: 'Account Status: {ACTIVE|DORMANT|SUSPENDED|CLOSED}'
           example: ACTIVE
       x-stoplight:
-        id: 98lfctux2ito7
+        id: 3wn5t8j58d367
+    CustomerAccountsModel:
+      required:
+        - accountName
+        - accountNumber
+        - accountType
+        - product
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: Account Number
+          example: '001001002002'
+        accountName:
+          type: string
+          description: Account Name
+          example: John Doe
+        accountType:
+          type: string
+          description: 'Account Type: {CURRENT|SAVINGS|FIXED_DEPOSIT}'
+          example: CURRENT
+        product:
+          type: string
+          description: Account Product ID
+          example: ABC313
+      x-stoplight:
+        id: g71llec0elix4
