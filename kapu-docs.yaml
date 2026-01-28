@@ -1563,7 +1563,7 @@ components:
         path:
           type: string
           description: URL
-          example: 'http://api.onit.com/api/v1/account'
+          example: 'http://api.partner.com/api/v1/account'
       x-stoplight:
         id: g1mlifh7nukz4
     StatusModel:
@@ -1613,7 +1613,7 @@ components:
           example: 20000
         channel:
           type: string
-          description: 'Destination of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          description: 'Destination of Funds: {MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
           example: MPESA
           enum:
             - MPESA
@@ -1698,7 +1698,7 @@ components:
           example: ON-14879134-0982
         channel:
           type: string
-          description: 'Destination of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          description: 'Destination of Funds: {MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
           example: MPESA
         channelTransactionReference:
           type: string
@@ -1842,7 +1842,7 @@ components:
           example: 20000
         channel:
           type: string
-          description: 'Source of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          description: 'Source of Funds: {MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
           example: MPESA
         product:
           type: string
@@ -1901,7 +1901,7 @@ components:
           example: ON-14879134-0982
         channel:
           type: string
-          description: 'Source of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          description: 'Source of Funds: {MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
           example: MPESA
         channelTransactionReference:
           type: string
@@ -2055,8 +2055,8 @@ components:
           example: '001001002002'
         channel:
           type: string
-          description: 'Destination of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
-          example: ONIT
+          description: 'Destination of Funds: {MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: MPESA
         narration:
           type: string
           description: Transaction Narration
@@ -2169,8 +2169,8 @@ components:
           example: '001001002002'
         channel:
           type: string
-          description: 'Source of Funds: {ONIT|MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
-          example: ONIT
+          description: 'Source of Funds: {MPESA|AIRTEL_MONEY|T-KASH|PESALINK}'
+          example: MPESA
         amount:
           type: number
           description: Repayment Amount
