@@ -2881,10 +2881,8 @@ components:
       x-stoplight:
         id: g71llec0elix4
   securitySchemes:
-    Authorization:
+    BearerAuth:
       type: http
       scheme: bearer
-      description: "Bearer Auth\r\n"
+      description: "JWT Bearer Token"
 x-internal: false
-security:
-  - Authorization: []
