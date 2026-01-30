@@ -3,11 +3,13 @@ x-stoplight:
   id: 6ukddqpacbhmq
 info:
   title: Kapu API
-  description: API documentation
+  description: Kapu API documentation
   version: '1.0'
 servers:
   - url: 'https://kapuapi.dibon.co.ke/'
-    description: Generated server url
+    description: Sandbox server url
+  - url: 'https://api.dibon.co.ke'
+    description: Production
 paths:
   '/api/v1/deactivate-partner/{email}':
     put:
@@ -2865,4 +2867,10 @@ components:
           example: ABC313
       x-stoplight:
         id: g71llec0elix4
+  securitySchemes:
+    Authorization:
+      type: oauth2
+      flows: {}
 x-internal: false
+security:
+  - Authorization: []
