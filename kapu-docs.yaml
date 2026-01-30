@@ -2867,10 +2867,5 @@ components:
           example: ABC313
       x-stoplight:
         id: g71llec0elix4
-  securitySchemes:
-    Authorization:
-      type: oauth2
-      flows: {}
+  securitySchemes: {}
 x-internal: false
-security:
-  - Authorization: []
