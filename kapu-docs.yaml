@@ -350,7 +350,7 @@ paths:
       tags:
         - Demo
       summary: Withdraw API
-      operationId: withdraw_1
+      operationId: withdraw_demo
       requestBody:
         content:
           application/json:
@@ -396,12 +396,13 @@ paths:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: ohbsybuvcktd1
+      security: []
   /api/v1/demo/pay:
     post:
       tags:
         - Demo
       summary: Account to Account Funds Transfer API
-      operationId: makePayment_1
+      operationId: Account_to_account_demo
       requestBody:
         content:
           application/json:
@@ -429,12 +430,13 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: x4smyqgc21aju
+      security: []
   /api/v1/demo/deposit:
     post:
       tags:
         - Demo
       summary: Deposit API
-      operationId: deposit_1
+      operationId: deposit_demo
       requestBody:
         content:
           application/json:
@@ -480,12 +482,13 @@ paths:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: ti5ovv3s6cmzi
+      security: []
   /api/v1/demo/create/subAccount:
     post:
       tags:
         - Demo
       summary: Account opening for sub-accounts for demo
-      operationId: subAccountOpening
+      operationId: subAccountOpening_demo
       requestBody:
         content:
           application/json:
@@ -507,12 +510,13 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: o518xead1au09
+      security: []
   /api/v1/deactivate:
     post:
       tags:
         - Authentication
       summary: Deactivate/Activate user by user ID or Email
-      operationId: register_1
+      operationId: Deactivate_activate
       requestBody:
         content:
           application/json:
@@ -561,6 +565,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: dhbxxfyh3ypvm
+      security: []
   /api/v1/auth/resend-otp:
     post:
       tags:
@@ -588,6 +593,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: 7j6dhk8489htb
+      security: []
   /api/v1/auth/jwt:
     post:
       tags:
@@ -615,6 +621,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: vkab57zh8wvla
+      security: []
   /api/v1/auth/forgot-password:
     post:
       tags:
@@ -642,6 +649,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: df8cj781g138s
+      security: []
   /api/v1/account/create/subAccount:
     post:
       tags:
@@ -1164,6 +1172,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: uftgu4zo0bp43
+      security: []
   '/api/v1/demo/query/{event}/{transactionRef}':
     get:
       tags:
@@ -1208,6 +1217,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: arx6xwn12skdu
+      security: []
   '/api/v1/demo/query/originatorRequestId/{event}/{originatorRequestId}':
     get:
       tags:
@@ -1252,6 +1262,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: 3vbkn8b8w4b6o
+      security: []
   '/api/v1/demo/info/{accountNumber}':
     get:
       tags:
@@ -1285,6 +1296,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: p6ulcuqavpuea
+      security: []
   '/api/v1/demo/balance/{accountNumber}':
     get:
       tags:
@@ -1319,6 +1331,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: 2qho20fo8wx20
+      security: []
   '/api/v1/account/statement/{accountNumber}':
     get:
       tags:
@@ -2867,5 +2880,11 @@ components:
           example: ABC313
       x-stoplight:
         id: g71llec0elix4
-  securitySchemes: {}
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      description: "Bearer Auth\r\n"
 x-internal: false
+security:
+  - Authorization: []
