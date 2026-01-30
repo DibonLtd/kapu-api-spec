@@ -2886,3 +2886,5 @@ components:
       scheme: bearer
       description: "JWT Bearer Token"
 x-internal: false
+security:
+  - BearerAuth: []
