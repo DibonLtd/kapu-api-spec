@@ -397,6 +397,7 @@ paths:
       x-stoplight:
         id: ohbsybuvcktd1
       security: []
+      x-internal: true
   /api/v1/demo/pay:
     post:
       tags:
@@ -431,6 +432,7 @@ paths:
       x-stoplight:
         id: x4smyqgc21aju
       security: []
+      x-internal: true
   /api/v1/demo/deposit:
     post:
       tags:
@@ -483,6 +485,7 @@ paths:
       x-stoplight:
         id: ti5ovv3s6cmzi
       security: []
+      x-internal: true
   /api/v1/demo/create/subAccount:
     post:
       tags:
@@ -511,6 +514,7 @@ paths:
       x-stoplight:
         id: o518xead1au09
       security: []
+      x-internal: true
   /api/v1/deactivate:
     post:
       tags:
@@ -1173,6 +1177,7 @@ paths:
       x-stoplight:
         id: uftgu4zo0bp43
       security: []
+      x-internal: true
   '/api/v1/demo/query/{event}/{transactionRef}':
     get:
       tags:
@@ -1218,6 +1223,7 @@ paths:
       x-stoplight:
         id: arx6xwn12skdu
       security: []
+      x-internal: true
   '/api/v1/demo/query/originatorRequestId/{event}/{originatorRequestId}':
     get:
       tags:
@@ -1263,6 +1269,7 @@ paths:
       x-stoplight:
         id: 3vbkn8b8w4b6o
       security: []
+      x-internal: true
   '/api/v1/demo/info/{accountNumber}':
     get:
       tags:
@@ -1297,6 +1304,7 @@ paths:
       x-stoplight:
         id: p6ulcuqavpuea
       security: []
+      x-internal: true
   '/api/v1/demo/balance/{accountNumber}':
     get:
       tags:
@@ -1332,6 +1340,7 @@ paths:
       x-stoplight:
         id: 2qho20fo8wx20
       security: []
+      x-internal: true
   '/api/v1/account/statement/{accountNumber}':
     get:
       tags:
@@ -2884,7 +2893,7 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
-      description: "JWT Bearer Token"
+      description: JWT Bearer Token
 x-internal: false
 security:
   - BearerAuth: []
