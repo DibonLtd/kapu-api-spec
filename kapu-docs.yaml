@@ -38,8 +38,6 @@ paths:
         id: md0ka59ye43e3
   /api/v1/transaction/withdraw:
     post:
-      tags:
-        - Transaction Management
       summary: Withdraw API
       operationId: withdraw
       requestBody:
@@ -87,10 +85,10 @@ paths:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: 31wlhbwa5wl3l
+      tags:
+        - Transaction Management
   /api/v1/transaction/pay:
     post:
-      tags:
-        - 3. Transaction Management
       summary: Account to Account Funds Transfer API
       operationId: makePayment
       requestBody:
@@ -120,10 +118,10 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: yfagc4w9yglm1
+      tags:
+        - Transaction Management
   /api/v1/transaction/deposit:
     post:
-      tags:
-        - 3. Transaction Management
       summary: Deposit API
       operationId: deposit
       requestBody:
@@ -171,6 +169,8 @@ paths:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: fs8o69zmwaur3
+      tags:
+        - Transaction Management
   /api/v1/register-partner:
     post:
       tags:
@@ -297,6 +297,7 @@ paths:
                         $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: v1ipyjhyag6b7
+      x-internal: false
   /api/v1/lending/loanRepayment:
     post:
       tags:
@@ -795,8 +796,6 @@ paths:
         id: zvvdfqf71iujd
   '/api/v1/transaction/query/{event}/{transactionRef}':
     get:
-      tags:
-        - 3. Transaction Management
       summary: Query Transaction By Core Banking Transaction Reference API
       operationId: queryTransactionByTransactionReference
       parameters:
@@ -837,10 +836,10 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: itfaed9s06vg0
+      tags:
+        - Transaction Management
   '/api/v1/transaction/query/originatorRequestId/{event}/{originatorRequestId}':
     get:
-      tags:
-        - 3. Transaction Management
       summary: Query Transaction By Originator Request Id API
       operationId: queryTransactionByRequestId
       parameters:
@@ -881,6 +880,8 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
       x-stoplight:
         id: 21dd7yo0i70lv
+      tags:
+        - Transaction Management
   /api/v1/partner:
     get:
       tags:
@@ -2864,3 +2865,4 @@ components:
           example: ABC313
       x-stoplight:
         id: g71llec0elix4
+x-internal: false
